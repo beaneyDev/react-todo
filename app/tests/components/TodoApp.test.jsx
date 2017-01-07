@@ -22,6 +22,7 @@ describe('TodoApp', () => {
 
     todoApp.handleAddTodo(todoText);
     expect(todoApp.state.todos[0].text).toBe('Matty');
+    expect(todoApp.state.todos[0].createdAt).toBeA('number');
   })
 
   it('should handle a toggle request correctly', () => {
@@ -30,12 +31,33 @@ describe('TodoApp', () => {
       todos: [{
         id: 11,
         text: "Text features",
-        completed: false
+        completed: false,
+        completedAt: undefined,
+        createdAt: 0
       }]
     });
 
     expect(todoApp.state.todos[0].completed).toBe(false);
     todoApp.handleToggle(11);
     expect(todoApp.state.todos[0].completed).toBe(true);
-  })
+    expect(todoApp.state.todos[0].completedAt).toBeA('number');
+  });
+
+  it('should remove completedAt when toggled to incomplete', () => {
+    var todoApp = TestUtils.renderIntoDocument(<TodoApp/>);
+    todoApp.setState({
+      todos: [{
+        id: 11,
+        text: "Text features",
+        completed: true,
+        completedAt: 1483815540,
+        createdAt: 1483815540
+      }]
+    });
+
+    expect(todoApp.state.todos[0].completed).toBe(true);
+    todoApp.handleToggle(11);
+    expect(todoApp.state.todos[0].completed).toBe(false);
+    expect(todoApp.state.todos[0].completedAt).toBe(undefined);
+  });
 })
