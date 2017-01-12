@@ -1,13 +1,14 @@
 var React = require('react');
-var moment = require('moment');
 
 //Components
-var TodoSearch = require('TodoSearch');
+import TodoSearch from 'TodoSearch';
 import TodoList from 'TodoList';
 import AddTodo from 'AddTodo';
 
+//Helpers
 var uuid = require('node-uuid');
 var TodoAPI = require('TodoAPI');
+var moment = require('moment');
 
 var TodoApp = React.createClass({
     getInitialState: function () {
@@ -50,9 +51,9 @@ var TodoApp = React.createClass({
           <div className="row">
             <div className="column small-centered small-11 medium-6 large-5">
               <div className="container">
-                <TodoSearch onSearch={this.handleSearch}/>
+                <TodoSearch/>
                 <TodoList/>
-                <AddTodo onSubmit={this.handleAddTodo}/>
+                <AddTodo/>
               </div>
             </div>
           </div>

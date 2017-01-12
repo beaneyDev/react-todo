@@ -4,35 +4,42 @@ var expect = require('expect');
 var $ = require('jQuery');
 var TestUtils = require('react-addons-test-utils');
 
-var TodoSearch = require('TodoSearch');
-
-function createSpyWithValue(searchText) {
-  var spy = expect.createSpy();
-  var searchInput = TestUtils.renderIntoDocument(<TodoSearch onSearch={spy}/>);
-  var $el = $(ReactDOM.findDOMNode(searchInput));
-  searchInput.refs.searchText.value = searchText;
-  TestUtils.Simulate.change(searchInput.refs.searchText);
-  return spy;
-}
+import {TodoSearch} from 'TodoSearch';
 
 describe('TodoSearch', () => {
   it('should exist', () => {
     expect(TodoSearch).toExist();
   })
 
-  it('should call onSearch with entered input.', () => {
-    let spy = createSpyWithValue("Test");
-    expect(spy).toHaveBeenCalledWith(false, "Test");
+  it('should dispatch SET_SEARCH_TEXT on input change', () => {
+    var searchText = 'Dog';
+    var spy = expect.createSpy();
+    var toDoSearch = TestUtils.renderIntoDocument(<TodoSearch dispatch={spy}/>);
+    var $el = $(ReactDOM.findDOMNode(toDoSearch));
+    toDoSearch.refs.searchText.value = searchText;
+    TestUtils.Simulate.change(toDoSearch.refs.searchText);
+
+    var action = {
+      type: 'SET_SEARCH_TEXT',
+      searchText
+    }
+
+    expect(spy).toHaveBeenCalledWith(action);
   })
 
-  it('should call onSearch with entered input.', () => {
+  it('should dispatch TOGGLE_SHOW_COMPLETED when checkbox checked', () => {
     var spy = expect.createSpy();
-    var searchInput = TestUtils.renderIntoDocument(<TodoSearch onSearch={spy}/>);
+    var searchInput = TestUtils.renderIntoDocument(<TodoSearch dispatch={spy}/>);
     var $el = $(ReactDOM.findDOMNode(searchInput));
     searchInput.refs.showCompleted.checked = true;
 
     TestUtils.Simulate.change(searchInput.refs.showCompleted);
-    expect(spy).toHaveBeenCalledWith(true, '');
+
+    var action = {
+      type: 'TOGGLE_SHOW_COMPLETED',
+    }
+
+    expect(spy).toHaveBeenCalledWith(action);
   })
 
   it('should call onSearch with proper checked value.', () => {
