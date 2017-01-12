@@ -41,6 +41,7 @@ describe('Reducers', () => {
 
       var res = reducers.todoReducer(df(todos), df(action));
       expect(res[0].completed).toBe(false);
+      expect(res[0].completedAt).toBe(undefined);
     });
 
     it('should add a todo', () => {
@@ -50,8 +51,8 @@ describe('Reducers', () => {
       };
 
       var res = reducers.todoReducer(df([]), df(action));
-      expect(res.length).toBe(1);
-      expect(res[0].text).toBe("Test");
+      expect(res.length).toEqual(1);
+      expect(res[0].text).toEqual("Test");
     });
   })
 });
