@@ -44,4 +44,25 @@ describe('Actions', () => {
 
     expect(completedAction).toEqual(testAction);
   });
+
+  it('should generate action for toggling show completed', () => {
+    var todos = [
+      {
+        id: 111,
+        text: "Anything",
+        completed: false,
+        completedAt: undefined,
+        createdAt: 200
+      }
+    ];
+
+    var completedAction = {
+      type: "ADD_TODOS",
+      todos: todos
+    };
+
+    var testAction = actions.addTodos(todos);
+
+    expect(completedAction).toEqual(testAction);
+  });
 });

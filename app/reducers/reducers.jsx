@@ -50,6 +50,14 @@ export var todoReducer = (state = [], action) => {
           return todo;
         }
       });
+    case "ADD_TODOS":
+      var returnObj = [
+          ...state,
+          ...action.todos
+      ];
+
+      console.log("TODOS:", returnObj);
+      return returnObj;
     default:
       return state;
   }
