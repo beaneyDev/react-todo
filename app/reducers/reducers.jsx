@@ -22,6 +22,15 @@ export var showCompletedReducer = (state = false, action) => {
   }
 
   return state;
+};
+
+export var loadingReducer = (state = false, action) => {
+  switch(action.type) {
+    case "TOGGLE_LOADING":
+      return !state;
+    default:
+      return state;
+  }
 }
 
 export var todoReducer = (state = [], action) => {
@@ -29,13 +38,7 @@ export var todoReducer = (state = [], action) => {
     case "ADD_TODO":
       var returnObj = [
         ...state,
-        {
-          id: uuid(),
-          text: action.text,
-          completed: false,
-          createdAt: moment().unix(),
-          completedAt: undefined
-        }
+        action.todo
       ];
       return returnObj;
     case "TOGGLE_TODO":

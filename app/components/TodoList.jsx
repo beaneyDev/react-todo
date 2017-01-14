@@ -6,16 +6,22 @@ import Todo from 'Todo';
 
 export var TodoList = React.createClass({
   render: function() {
-    var {todos, searchText, showCompleted} = this.props;
+    var {todos, searchText, showCompleted, isLoading} = this.props;
 
     var formattedSearchText = searchText ? searchText.toLowerCase() : "";
     var filteredTodos = TodoAPI.filterTodos(todos, showCompleted, formattedSearchText);
 
     var renderTodos = () => {
       if(filteredTodos.length === 0) {
-        return (
-          <p className="container__message">Nothing to do!</p>
-        )
+        if(isLoading) {
+          return (
+            <p className="container__message">Loading...</p>
+          )
+        } else {
+          return (
+            <p className="container__message">Nothing to do!</p>
+          )
+        }
       }
       return filteredTodos.map((todo) => {
         return <Todo key={todo.id} {...todo}/>
