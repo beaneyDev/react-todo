@@ -31,7 +31,6 @@ export var startAddTodo = (text) => {
       completedAt: null
     };
 
-    dispatch(toggleLoading());
     var todoRef = firebaseRef.child('todos').push(todo);
 
     return todoRef.then(() => {
@@ -39,8 +38,6 @@ export var startAddTodo = (text) => {
         ...todo,
         id: todoRef.key
       }));
-
-      dispatch(toggleLoading());
     });
   }
 };
