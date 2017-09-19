@@ -4,19 +4,14 @@
   "description": "Simple react app",
   "main": "index.js",
   "scripts": {
-    "test": "karma start",
-    "start": "node server.js"
+    "test": "NODE_ENV=test karma start",
+    "build": "webpack",
+    "start": "npm run build && node server.js"
   },
   "author": "Matt Beaney",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.15.3",
-    "express": "^4.14.0",
-    "react": "^0.14.7",
-    "react-dom": "^0.14.7",
-    "react-router": "^2.0.0"
-  },
-  "devDependencies": {
     "babel": "^6.5.2",
     "babel-core": "^6.18.2",
     "babel-loader": "^6.2.2",
@@ -26,16 +21,10 @@
     "css-loader": "^0.23.1",
     "deep-freeze-strict": "^1.1.1",
     "expect": "^1.14.0",
+    "express": "^4.14.0",
     "firebase": "^3.0.2",
     "foundation-sites": "^6.2.0",
     "jquery": "^2.2.1",
-    "karma": "^0.13.22",
-    "karma-chrome-launcher": "^0.2.2",
-    "karma-mocha": "^0.2.2",
-    "karma-mocha-reporter": "^2.0.0",
-    "karma-sourcemap-loader": "^0.3.7",
-    "karma-webpack": "^1.7.0",
-    "mocha": "^2.4.5",
     "moment": "^2.12.0",
     "node-sass": "^4.0.0",
     "node-uuid": "^1.4.7",
@@ -47,6 +36,18 @@
     "sass-loader": "^4.0.2",
     "script-loader": "^0.6.1",
     "style-loader": "^0.13.0",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
+    "react-router": "^2.0.0",
     "webpack": "^1.14.0"
+  },
+  "devDependencies": {
+    "karma": "^0.13.22",
+    "karma-chrome-launcher": "^0.2.2",
+    "karma-mocha": "^0.2.2",
+    "karma-mocha-reporter": "^2.0.0",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^1.7.0",
+    "mocha": "^2.4.5"
   }
 }
