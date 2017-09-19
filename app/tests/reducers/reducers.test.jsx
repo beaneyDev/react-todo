@@ -31,17 +31,19 @@ describe('Reducers', () => {
       var todos = [{
         id: 0,
         text: 'Walk the dog',
-        completed: true
+        completed: true,
+        completedAt: 123
       }];
 
       var action = {
-        type: "TOGGLE_TODO",
-        id: 0
+        type: "UPDATE_TODO",
+        id: 0,
+        updates: {completed : false, completedAt: null}
       };
 
       var res = reducers.todoReducer(df(todos), df(action));
       expect(res[0].completed).toBe(false);
-      expect(res[0].completedAt).toBe(undefined);
+      expect(res[0].completedAt).toBe(null);
     });
 
     it('should add a todo', () => {

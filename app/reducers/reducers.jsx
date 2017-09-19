@@ -41,13 +41,12 @@ export var todoReducer = (state = [], action) => {
         action.todo
       ];
       return returnObj;
-    case "TOGGLE_TODO":
+    case "UPDATE_TODO":
       return state.map((todo) => {
         if(todo.id == action.id) {
           return {
             ...todo,
-            completed: !todo.completed,
-            completedAt: !todo.completed ? moment().unix() : undefined
+            ...action.updates
           };
         } else {
           return todo;
@@ -59,7 +58,6 @@ export var todoReducer = (state = [], action) => {
           ...action.todos
       ];
 
-      console.log("TODOS:", returnObj);
       return returnObj;
     default:
       return state;

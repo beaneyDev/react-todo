@@ -1,28 +1,6 @@
 var $ = require('jQuery');
 
 module.exports = {
-  setTodos: function (todos) {
-    if($.isArray(todos)) {
-      //converts array into string for local storage.
-      localStorage.setItem('todos', JSON.stringify(todos));
-      return todos;
-    }
-  },
-  getTodos: function () {
-    //Fetch todos JSON string
-    var stringTodos = localStorage.getItem('todos');
-    var todos = [];
-
-    try {
-      //Attempt to convert to object/array
-      todos = JSON.parse(stringTodos);
-    } catch (e) {
-      return [];
-    }
-
-    //Check its an actual array, if not return empty array.
-    return $.isArray(todos) ? todos : [];
-  },
   filterTodos: function (todos, showCompleted, searchText) {
     var filteredTodos = todos;
 
