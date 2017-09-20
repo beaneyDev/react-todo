@@ -5,18 +5,19 @@ import {Provider} from 'react-redux';
 import firebase from 'app/firebase/';
 import * as actions from 'actions';
 import router from 'app/router/';
+var store = require('configureStore').configure();
 
 firebase.auth().onAuthStateChanged((user) => {
   if(user) {
+    store.dispatch(actions.logUserIn(user.uid));
+    store.dispatch(actions.startAddTodos());
     hashHistory.push('todos');
   } else {
+    store.dispatch(actions.logUserOut());
     hashHistory.push('/');
   }
 });
 
-var store = require('configureStore').configure();
-
-store.dispatch(actions.startAddTodos());
 $(document).foundation();
 
 //Load foundation and styles

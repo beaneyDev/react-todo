@@ -9,6 +9,25 @@ var expect = require('expect');
 var actions = require('actions');
 
 describe('Actions', () => {
+  it('should generate a login action', () => {
+    const completedAction = {
+      type: "LOGIN",
+      uid: 1
+    }
+
+    const testAction = actions.logUserIn(1);
+    expect(testAction).toEqual(completedAction);
+  });
+
+  it('should generate a logout action', () => {
+    var completedAction = {
+      type: "LOGOUT"
+    }
+
+    var testAction = actions.logUserOut();
+    expect(testAction).toEqual(completedAction);
+  });
+
   it('should generate search text action', () => {
     var completedAction = {
       type: "SET_SEARCH_TEXT",
@@ -116,7 +135,6 @@ describe('Tests with firebase todos', () => {
 
   afterEach((done) => {
     testTodoRef.remove().then(() => {
-      console.log("DONE AFTER");
       done()
     });
   })
@@ -151,7 +169,6 @@ describe('Tests with firebase todos', () => {
       });
 
       expect(mockActions[1].updates.completedAt).toExist();
-      console.log("DONE TEST");
       done();
     }, done).catch(done);
   });
