@@ -59,6 +59,8 @@ export var todoReducer = (state = [], action) => {
       ];
 
       return returnObj;
+    case "LOGOUT":
+      return [];
     default:
       return state;
   }
