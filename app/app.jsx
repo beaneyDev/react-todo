@@ -4,8 +4,10 @@ import {hashHistory} from 'react-router';
 import {Provider} from 'react-redux';
 import firebase from 'app/firebase/';
 import * as actions from 'actions';
-import router from 'app/router/';
+import * as router from 'app/router/';
 var store = require('configureStore').configure();
+
+router.handleOAuth();
 
 firebase.auth().onAuthStateChanged((user) => {
   if(user) {
@@ -25,7 +27,7 @@ require('style!css!sass!applicationStyles')
 
 ReactDOM.render(
   <Provider store={store}>
-    {router}
+    {router.markup}
   </Provider>,
   document.getElementById('app')
 );

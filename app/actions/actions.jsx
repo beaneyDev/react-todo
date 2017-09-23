@@ -102,11 +102,15 @@ export var toggleShowCompleted = () => {
 
 export var startLogin = () => {
     return (dispatch, getState) => {
-      return firebase.auth().signInWithPopup(githubProvider).then((result) => {
-        //dispatch(logUserIn(result.user.uid));
-      }, (error) => {
-        console.log("Unable to auth", error);
-      });
+      window.oauth2Callback = function (token) {
+        console.log('Token is ' + token);
+        var credential = firebase.auth.GithubAuthProvider.credential(token);
+         firebase.auth().signInWithCredential(credential).catch(function(error) {
+           
+         });
+      };
+
+      window.open('http://github.com/login/oauth/authorize?client_id=df6b508bc92edc6cdb8c');
     }
 };
 
