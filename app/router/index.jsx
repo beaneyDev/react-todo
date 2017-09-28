@@ -8,7 +8,7 @@ import firebase from 'app/firebase/';
 //Slight hack to allow me to handle any OAuth responses.
 //Called more or less on load of the web app, it will look for a parent opener, if it finds one, and if we have a
 export var handleOAuth = () => {
-  var searchParams = new URLSearchParams(window.location);
+  var searchParams = new URLSearchParams(window.location.search);
   var accessToken = "";
   searchParams.forEach((param) => {
     accessToken = param;

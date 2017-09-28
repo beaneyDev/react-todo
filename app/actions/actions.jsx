@@ -105,6 +105,7 @@ export var startLogin = () => {
       window.oauth2Callback = function (token) {
         console.log('Token is ' + token);
         var credential = firebase.auth.GithubAuthProvider.credential(token);
+        console.log(token);
          firebase.auth().signInWithCredential(credential).catch(function(error) {
            console.log(error);
          });
