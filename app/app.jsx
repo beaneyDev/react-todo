@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {hashHistory} from 'react-router';
 import {Provider} from 'react-redux';
-import firebase from 'app/firebase/';
+import firebase, {firebaseRef} from 'app/firebase/';
 import * as actions from 'actions';
 import * as router from 'app/router/';
 var store = require('configureStore').configure();
@@ -21,6 +21,7 @@ firebase.auth().onAuthStateChanged((user) => {
 });
 
 function listenForTodos() {
+  var todosRef = firebaseRef.child(`users/${uid}/todos`);
   todosRef.on('value').then((snapshot) => {
     var todos = Object.keys(snapshot.val() || {}).map((key) => {
       var todo = snapshot.val()[key];
