@@ -9,7 +9,7 @@ var store = require('configureStore').configure();
 
 router.handleOAuth();
 
-// var credential = firebase.auth.GithubAuthProvider.credential('38ec8ab1ac07fb88d4ab594e1b6c4bd40251acd7');
+// var credential = firebase.auth.GithubAuthProvider.credential('Token goes here.');
 // firebase.auth().signInWithCredential(credential).catch(function(error) {
 //   console.log(error);
 // });
