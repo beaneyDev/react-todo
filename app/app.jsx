@@ -12,7 +12,7 @@ router.handleOAuth();
 firebase.auth().onAuthStateChanged((user) => {
   if(user) {
     store.dispatch(actions.logUserIn(user.uid));
-    listenForTodos(uid)
+    listenForTodos(user.uid)
     hashHistory.push('todos');
   } else {
     store.dispatch(actions.logUserOut());
