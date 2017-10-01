@@ -22,6 +22,10 @@ module.exports = {
       } else if(a.completed && !b.completed) {
         return 1;
       } else {
+        if(a.createdAt > b.createdAt) {
+          return 1
+        };
+
         return 0;
       }
     });

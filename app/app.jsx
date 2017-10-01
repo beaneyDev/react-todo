@@ -9,7 +9,8 @@ var store = require('configureStore').configure();
 
 router.handleOAuth();
 
-// var credential = firebase.auth.GithubAuthProvider.credential('Token goes here.');
+//use for local testing of Todos.
+// var credential = firebase.auth.GithubAuthProvider.credential('');
 // firebase.auth().signInWithCredential(credential).catch(function(error) {
 //   console.log(error);
 // });

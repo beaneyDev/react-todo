@@ -55,10 +55,10 @@ export var startAddTodo = (text) => {
     var todoRef = firebaseRef.child(`users/${uid}/todos`).push(todo);
 
     return todoRef.then(() => {
-      dispatch(addTodo({
-        ...todo,
-        id: todoRef.key
-      }));
+      // dispatch(addTodo({
+      //   ...todo,
+      //   id: todoRef.key
+      // }));
     });
   }
 };
