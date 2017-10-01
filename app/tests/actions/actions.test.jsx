@@ -129,28 +129,27 @@ describe('Tests with firebase todos', () => {
     const todoText = 'Walk the dog';
     store.dispatch(actions.startAddTodo(todoText)).then(() => {
       const actions = store.getActions();
-      expect(actions[0]).toInclude({
-        type: 'ADD_TODO'
-      });
 
-      expect(actions[0].todo).toInclude({
-        text: todoText
-      });
+      todosRef.once('value', (snapshot) => {
+        var todos = Object.keys(snapshot.val() || {}).map((key) => {
+          var todo = snapshot.val()[key];
+          return {
+            id: key,
+            ...todo
+          }
+        });
 
-      done();
-    }).catch(done);
-  });
+        var foundTodo = null;
+        todos.forEach((todo) => {
+          if(todo.text == todoText) {
+            foundTodo = todo
+          }
+        })
 
-  it('should fetch a list of todos from firebase', (done) => {
-    const store = createMockStore({auth: {uid}});
-    const action = actions.startAddTodos();
+        expect(foundTodo).toNotBe(null);
 
-    store.dispatch(action).then(() => {
-      expect(store.getActions()[1].todos.length == 1);
-      expect(store.getActions()[1].type == "ADD_TODOS");
-      expect(store.getActions()[1].todos[0].text == "Walk the dog");
-
-      done();
+        done();
+      }).catch(done);
     }).catch(done);
   });
 
