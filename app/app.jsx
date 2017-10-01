@@ -26,6 +26,7 @@ firebase.auth().onAuthStateChanged((user) => {
 });
 
 function listenForTodos(uid) {
+  store.dispatch(actions.toggleLoading());
   var todosRef = firebaseRef.child(`users/${uid}/todos`);
   todosRef.on('value', (snapshot) => {
     var todos = Object.keys(snapshot.val() || {}).map((key) => {
