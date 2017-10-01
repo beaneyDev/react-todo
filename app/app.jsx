@@ -12,7 +12,7 @@ router.handleOAuth();
 firebase.auth().onAuthStateChanged((user) => {
   if(user) {
     store.dispatch(actions.logUserIn(user.uid));
-    listenForTodos()
+    listenForTodos(uid)
     hashHistory.push('todos');
   } else {
     store.dispatch(actions.logUserOut());
@@ -20,7 +20,7 @@ firebase.auth().onAuthStateChanged((user) => {
   }
 });
 
-function listenForTodos() {
+function listenForTodos(uid) {
   var todosRef = firebaseRef.child(`users/${uid}/todos`);
   todosRef.on('value').then((snapshot) => {
     var todos = Object.keys(snapshot.val() || {}).map((key) => {
