@@ -9,6 +9,11 @@ var store = require('configureStore').configure();
 
 router.handleOAuth();
 
+// var credential = firebase.auth.GithubAuthProvider.credential('38ec8ab1ac07fb88d4ab594e1b6c4bd40251acd7');
+// firebase.auth().signInWithCredential(credential).catch(function(error) {
+//   console.log(error);
+// });
+
 firebase.auth().onAuthStateChanged((user) => {
   if(user) {
     store.dispatch(actions.logUserIn(user.uid));
@@ -22,7 +27,7 @@ firebase.auth().onAuthStateChanged((user) => {
 
 function listenForTodos(uid) {
   var todosRef = firebaseRef.child(`users/${uid}/todos`);
-  todosRef.on('value').then((snapshot) => {
+  todosRef.on('value', (snapshot) => {
     var todos = Object.keys(snapshot.val() || {}).map((key) => {
       var todo = snapshot.val()[key];
       return {
