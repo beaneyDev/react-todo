@@ -12,13 +12,28 @@ router.handleOAuth();
 firebase.auth().onAuthStateChanged((user) => {
   if(user) {
     store.dispatch(actions.logUserIn(user.uid));
-    store.dispatch(actions.startAddTodos());
+    listenForTodos()
     hashHistory.push('todos');
   } else {
     store.dispatch(actions.logUserOut());
     hashHistory.push('/');
   }
 });
+
+function listenForTodos() {
+  todosRef.on('value').then((snapshot) => {
+    var todos = Object.keys(snapshot.val() || {}).map((key) => {
+      var todo = snapshot.val()[key];
+      return {
+        id: key,
+        ...todo
+      }
+    });
+
+    store.dispatch(actions.addTodos(todos));
+    store.dispatch(actions.toggleLoading());
+  });
+}
 
 $(document).foundation();
 
